@@ -1,59 +1,57 @@
-import { Container, Nav, Navbar, NavDropdown, Form, Button, Tab, Row, Col } from 'react-bootstrap';
+import { Container, Nav, Navbar, Form, Button, Tab, Row, Col } from 'react-bootstrap';
 import PaginationBar from './Pagination'
 import Card from 'react-bootstrap/Card';
 import MarkdownRenderer from 'react-markdown-renderer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 function NaviBar({ onSearchCoderHub, setsearchTerm, setpageNumber, repo, pageNumber, readme, fetchUser, user: users }) {
+
     return (
         <div>
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container fluid>
-                    <Navbar.Brand href="#">Github</Navbar.Brand>
+                    <Navbar.Brand href="#">
+                        <FontAwesomeIcon icon={faGithub} style={{ marginLeft: '1rem' }} size="lg" />
+                        {" "} GitHub
+
+                    </Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
-                    <Navbar.Collapse id="navbarScroll">
+                    <Navbar.Collapse id="navbarScroll" >
                         <Nav
                             className="me-auto my-2 my-lg-0"
                             style={{ maxHeight: '100px' }}
                             navbarScroll
                         >
                             <Nav.Link href="#action1">Home</Nav.Link>
-                            <Nav.Link href="#action2">Link</Nav.Link>
-                            <NavDropdown title="Link" id="navbarScrollingDropdown">
-                                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                                <NavDropdown.Item href="#action4">
-                                    Another action
-                                </NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action5">
-                                    Something else here
-                                </NavDropdown.Item>
-                            </NavDropdown>
-                            <Nav.Link href="#" disabled>
-                                Link
-                            </Nav.Link>
+
                         </Nav>
 
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
 
-            <Form className="d-flex mt-3" onSubmit={(e) => {
-                onSearchCoderHub(e)
-                fetchUser()
-            }}>
-                <Form.Control
-                    type="search"
-                    placeholder="Search"
-                    className="me-2"
-                    aria-label="Search"
-                    onChange={(e) => setsearchTerm(e.target.value)}
-                />
-                <Button variant="outline-success" onClick={(e) => {
+            <Container>
+
+                <Form className="d-flex mt-3" onSubmit={(e) => {
                     onSearchCoderHub(e)
                     fetchUser()
-                }}>Search</Button>
-            </Form>
+                }}>
+                    <Form.Control
+                        type="search"
+                        placeholder="Search"
+                        className="me-2"
+                        aria-label="Search"
+                        onChange={(e) => setsearchTerm(e.target.value)}
+                    />
+                    <Button variant="outline-success" onClick={(e) => {
+                        onSearchCoderHub(e)
+                        fetchUser()
+                    }}>Search</Button>
+                </Form>
+            </Container>
             <Container className='mt-3 border p-3'>
+                <PaginationBar pageNumber={pageNumber} onSearchCoderHub={onSearchCoderHub} setpageNumber={setpageNumber} />
                 <Tab.Container id="left-tabs-example" defaultActiveKey="first" >
                     <Row>
                         <Col sm={3}>
@@ -114,7 +112,7 @@ function NaviBar({ onSearchCoderHub, setsearchTerm, setpageNumber, repo, pageNum
                                 </Tab.Pane>
 
                             </Tab.Content >
-                            <PaginationBar className="" pageNumber={pageNumber} onSearchCoderHub={onSearchCoderHub} setpageNumber={setpageNumber} />
+
                         </Col>
 
                     </Row>

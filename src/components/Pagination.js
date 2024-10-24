@@ -1,22 +1,36 @@
-import {Pagination } from 'react-bootstrap';
-const PaginationBar = ({pageNumber: pgNumber, setpageNumber: spNumber, onSearchCoderHub: onSearch} ) => {
-    if (pgNumber === 0) return '';
-    return (
-      <Pagination>
-        <Pagination.First />
-        <Pagination.Prev />
-        <Pagination.Item active>{1}</Pagination.Item>
-        <Pagination.Item onClick={(e) => {
-          e.preventDefault();
-          spNumber(pgNumber + 1);
-          onSearch(e);
-        }}>{2}</Pagination.Item>
-        <Pagination.Item onClick={(e) => {
-          onSearch(e,pgNumber + 1);
-        }}  >{3}</Pagination.Item>
-        <Pagination.Next />
-        <Pagination.Next />
-        <Pagination.Last />
-      </Pagination>)
-  }
-  export default PaginationBar
+import { Pagination } from 'react-bootstrap';
+
+const PaginationBar = ({ pageNumber, setpageNumber, onSearchCoderHub }) => {
+  if (pageNumber === 0) return null;
+
+  const goToPage = (page) => {
+    setpageNumber(page);
+    onSearchCoderHub(); // Call onSearchCoderHub without expecting an event
+  };
+
+  return (
+    <Pagination className="pagination-bar">
+      <Pagination.First onClick={() => {
+        goToPage(1); // Go to the first page
+      }} />
+      <Pagination.Prev onClick={() => {
+        if (pageNumber > 1) {
+          goToPage(pageNumber - 1); // Go to the previous page
+        }
+      }} />
+      <Pagination.Item active>{pageNumber}</Pagination.Item>
+      <Pagination.Item onClick={() => goToPage(pageNumber + 1)}>
+        {pageNumber + 1}
+      </Pagination.Item>
+      <Pagination.Next onClick={() => {
+        goToPage(pageNumber + 1); // Go to the next page
+      }} />
+      <Pagination.Last onClick={() => {
+        const lastPage = 10; // Adjust as needed for your use case
+        goToPage(lastPage); // Go to the last page
+      }} />
+    </Pagination>
+  );
+};
+
+export default PaginationBar;
