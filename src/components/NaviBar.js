@@ -12,7 +12,7 @@ function NaviBar({ onSearchCoderHub, setsearchTerm, setpageNumber, repo, pageNum
 
             <Navbar expand="lg" className="bg-body-tertiary" sticky="top">
                 <Container fluid>
-                    <Navbar.Brand href="#">
+                    <Navbar.Brand href="/">
                         <FontAwesomeIcon icon={faGithub} style={{ marginLeft: '1rem' }} size="lg" />
                         {" "} GitHub
 
