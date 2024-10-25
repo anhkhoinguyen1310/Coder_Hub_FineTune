@@ -23,7 +23,10 @@ function App() {
       // This is a new search, reset pageNumber
       setReadme(null);
       setRepo([]);
+      setUser([]);
       page = 1; // Start from the first page for new searches
+      window.history.pushState({}, '', '/'); // Reset the URL to root
+      setCurrentPath('/'); // Update currentPath state
     }
 
     const currentPage = page || pageNumber;
@@ -41,6 +44,7 @@ function App() {
     }
     setIsLoading(false);
   };
+
 
 
   const fetchReadMe = async () => {

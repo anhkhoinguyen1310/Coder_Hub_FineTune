@@ -6,11 +6,16 @@ import "./DarkMode/DarkMode.css";
 const DarkMode = () => {
     const toggleDarkMode = () => {
         document.querySelector("body").setAttribute("data-theme", "dark");
+        localStorage.setItem("selectedTheme", "dark");
 
-    }
+    };
     const toggleLightMode = () => {
         document.querySelector("body").setAttribute("data-theme", "light");
-
+        localStorage.setItem("selectedTheme", "light");
+    }
+    const selectedTheme = localStorage.getItem("selectedTheme");
+    if (selectedTheme) {
+        toggleDarkMode();
     }
     const toggleTheme = (e) => {
         if (e.target.checked) {
