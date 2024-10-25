@@ -4,30 +4,20 @@ import Card from 'react-bootstrap/Card';
 import MarkdownRenderer from 'react-markdown-renderer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-
+import DarkMode from './DarkMode';
 function NaviBar({ onSearchCoderHub, setsearchTerm, setpageNumber, repo, pageNumber, readme, fetchUser, user: users }) {
 
     return (
         <div>
-            <Navbar expand="lg" className="bg-body-tertiary">
+
+            <Navbar expand="lg" className="bg-body-tertiary" sticky="top">
                 <Container fluid>
                     <Navbar.Brand href="#">
                         <FontAwesomeIcon icon={faGithub} style={{ marginLeft: '1rem' }} size="lg" />
                         {" "} GitHub
 
                     </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="navbarScroll" />
-                    <Navbar.Collapse id="navbarScroll" >
-                        <Nav
-                            className="me-auto my-2 my-lg-0"
-                            style={{ maxHeight: '100px' }}
-                            navbarScroll
-                        >
-                            <Nav.Link href="#action1">Home</Nav.Link>
-
-                        </Nav>
-
-                    </Navbar.Collapse>
+                    <DarkMode />
                 </Container>
             </Navbar>
 
@@ -39,7 +29,7 @@ function NaviBar({ onSearchCoderHub, setsearchTerm, setpageNumber, repo, pageNum
                 }}>
                     <Form.Control
                         type="search"
-                        placeholder="Search"
+                        placeholder="Search Username / Repository"
                         className="me-2"
                         aria-label="Search"
                         onChange={(e) => setsearchTerm(e.target.value)}
@@ -97,13 +87,11 @@ function NaviBar({ onSearchCoderHub, setsearchTerm, setpageNumber, repo, pageNum
                                                         {r.full_name}
                                                     </a>
                                                     </Card.Title>
-                                                    <Card.Subtitle className="mb-2 text-muted">⭐ {r.stargazers_count}</Card.Subtitle>
+                                                    <Card.Subtitle className="mb-2">⭐ {r.stargazers_count}</Card.Subtitle>
 
                                                     <Card.Text>
                                                         {r.description}
                                                     </Card.Text>
-                                                    <Card.Link href="#">Card Link</Card.Link>
-                                                    <Card.Link href="#">Another Link</Card.Link>
                                                 </Card.Body>
                                             </Card>)
                                     })

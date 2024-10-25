@@ -3,9 +3,9 @@ import { Pagination } from 'react-bootstrap';
 const PaginationBar = ({ pageNumber, setpageNumber, onSearchCoderHub }) => {
   if (pageNumber === 0) return null;
 
+  // In PaginationBar.js
   const goToPage = (page) => {
-    setpageNumber(page);
-    onSearchCoderHub(); // Call onSearchCoderHub without expecting an event
+    onSearchCoderHub(null, page); // Pass the page number to onSearchCoderHub
   };
 
   return (

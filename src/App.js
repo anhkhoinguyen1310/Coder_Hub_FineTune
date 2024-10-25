@@ -16,29 +16,32 @@ function App() {
 
   console.log({ searchTerm });
 
-  const onSearchCoderHub = async (e) => {
+  // In App.js
+  const onSearchCoderHub = async (e, page) => {
     if (e && e.preventDefault) {
       e.preventDefault();
+      // This is a new search, reset pageNumber
+      setReadme(null);
+      setRepo([]);
+      page = 1; // Start from the first page for new searches
     }
-    //reset the readme and repo
-    window.history.pushState({}, '', '/');
-    setReadme(null);
-    setRepo([]);
-    setpageNumber(1);
+
+    const currentPage = page || pageNumber;
 
     setIsLoading(true);
     try {
       const response = await fetch(
-        `https://api.github.com/search/repositories?q=${encodeURIComponent(searchTerm)}&page=${pageNumber}`
+        `https://api.github.com/search/repositories?q=${encodeURIComponent(searchTerm)}&page=${currentPage}`
       );
       const data = await response.json();
       setRepo(data.items || []);
-      setpageNumber(pageNumber + 1);
+      setpageNumber(currentPage); // Update the pageNumber state
     } catch (error) {
       console.error('Error fetching data: ', error);
     }
     setIsLoading(false);
   };
+
 
   const fetchReadMe = async () => {
     try {
@@ -119,6 +122,7 @@ function App() {
 
   return (
     <div>
+
       <NaviBar
         onSearchCoderHub={onSearchCoderHub}
         fetchUser={fetchUser}
