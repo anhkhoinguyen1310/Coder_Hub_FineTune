@@ -1,29 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ReactComponent as Sun } from "./DarkMode/Sun.svg";
 import { ReactComponent as Moon } from "./DarkMode/Moon.svg";
 import "./DarkMode/DarkMode.css";
 
 const DarkMode = () => {
-    const toggleDarkMode = () => {
-        document.querySelector("body").setAttribute("data-theme", "dark");
-        localStorage.setItem("selectedTheme", "dark");
+    const [isDarkMode, setIsDarkMode] = useState(false);
 
-    };
-    const toggleLightMode = () => {
-        document.querySelector("body").setAttribute("data-theme", "light");
-        localStorage.setItem("selectedTheme", "light");
-    }
-    const selectedTheme = localStorage.getItem("selectedTheme");
-    if (selectedTheme) {
-        toggleDarkMode();
-    }
+    // Initialize theme on component mount
+    useEffect(() => {
+        const selectedTheme = localStorage.getItem("selectedTheme");
+        if (selectedTheme === "dark") {
+            document.querySelector("body").setAttribute("data-theme", "dark");
+            setIsDarkMode(true);
+        } else {
+            document.querySelector("body").setAttribute("data-theme", "light");
+            setIsDarkMode(false);
+        }
+    }, []);
+
     const toggleTheme = (e) => {
         if (e.target.checked) {
-            toggleDarkMode();
+            document.querySelector("body").setAttribute("data-theme", "dark");
+            localStorage.setItem("selectedTheme", "dark");
+            setIsDarkMode(true);
         } else {
-            toggleLightMode();
+            document.querySelector("body").setAttribute("data-theme", "light");
+            localStorage.setItem("selectedTheme", "light");
+            setIsDarkMode(false);
         }
-    }
+    };
+
     return (
         <div className='dark_mode'>
             <input
@@ -31,6 +37,7 @@ const DarkMode = () => {
                 type='checkbox'
                 id='darkmode-toggle'
                 onChange={toggleTheme}
+                checked={isDarkMode}
             />
             <label className='dark_mode_label' htmlFor='darkmode-toggle'>
                 <Sun />
